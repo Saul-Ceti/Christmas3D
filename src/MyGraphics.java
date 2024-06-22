@@ -15,7 +15,7 @@ public class MyGraphics {
     public MyGraphics(View view, BufferedImage buffer){
         this.view = view;
         this.buffer = buffer;
-        this.director = new int[]{1, 1, 1};
+        this.director = new int[]{1, 1, 100};
     }
 
     public void setPixelWidth(int pixelWidth){
