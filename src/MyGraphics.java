@@ -346,5 +346,29 @@ public class MyGraphics {
             }
         }
     }
+
+    public void drawSphere(int[][] vertices, int[][] faces, int x, int y, int z, double scale, Color color) {
+        int numVertices = vertices.length;
+
+        int[] xProjected = new int[numVertices];
+        int[] yProjected = new int[numVertices];
+
+        // Proyección de los vértices usando el vector director
+        for (int i = 0; i < numVertices; i++) {
+            double u = (double) -vertices[i][2] / director[2];
+            double projectedX = vertices[i][0] + director[0] * u;
+            double projectedY = vertices[i][1] + director[1] * u;
+
+            // Aplicar la proyección oblicua para obtener las coordenadas 2D
+            xProjected[i] = (int) Math.round(projectedX * scale) + x;
+            yProjected[i] = (int) Math.round(projectedY * scale) + y;
+        }
+
+        // Dibujar cada vértice de la esfera como un pequeño círculo para simular la superficie
+        for (int i = 0; i < numVertices; i++) {
+            circleBasic(xProjected[i], yProjected[i], (int) (scale * 5), color); // Usar un radio pequeño para cada punto
+        }
+    }
+
 }
 

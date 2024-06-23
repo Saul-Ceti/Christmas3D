@@ -12,4 +12,11 @@ public class CustomColors {
     // Pared de la casa
     public static final Color WOOD = new Color(222, 184, 135);
     public static final Color DARK_BLUE = new Color(0, 0, 139);
+
+    // Regalos
+    public static final Color DARK_RED = new Color(139, 0, 0);
+    public static final Color GOLD = new Color(255, 215, 0);
+
+    public static final Color PURPLE = new Color(128, 0, 128);
+
 }

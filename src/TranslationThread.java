@@ -16,7 +16,7 @@ public class TranslationThread extends Thread {
     public void run() {
         while (true) {
             try {
-                Thread.sleep(10);
+                Thread.sleep(70);
                 updatePosition();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);

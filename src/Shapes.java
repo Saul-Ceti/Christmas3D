@@ -117,4 +117,47 @@ public class Shapes {
                 {5, 0, 6, 11}          // Cara lateral desde el vértice 5 al 0
         };
     }
+
+    //------------------------------- Estrella --------------------------------//
+    public int[][] verticesStar3D(int r, int h) {
+        int numPoints = 5;  // Número de puntas de la estrella
+        double angleStep = 2 * Math.PI / numPoints;
+        double innerRadius = r / 2.5;  // Radio para los puntos internos de la estrella
+
+        int[][] vertices = new int[2 * numPoints][3];
+        for (int i = 0; i < numPoints; i++) {
+            // Vértices externos en la parte superior
+            vertices[i][0] = (int) (r * Math.cos(i * angleStep));
+            vertices[i][1] = (int) (r * Math.sin(i * angleStep));
+            vertices[i][2] = h / 2;
+
+            // Vértices internos en la parte superior
+            vertices[numPoints + i][0] = (int) (innerRadius * Math.cos(i * angleStep + angleStep / 2));
+            vertices[numPoints + i][1] = (int) (innerRadius * Math.sin(i * angleStep + angleStep / 2));
+            vertices[numPoints + i][2] = h / 2;
+        }
+
+        // Agregar los vértices correspondientes en la parte inferior duplicando los superiores pero con z negativo
+        int[][] completeVertices = new int[4 * numPoints][3];
+        for (int i = 0; i < 2 * numPoints; i++) {
+            completeVertices[i] = vertices[i];
+            completeVertices[2 * numPoints + i] = new int[] {vertices[i][0], vertices[i][1], -vertices[i][2]};
+        }
+
+        return completeVertices;
+    }
+
+    public int[][] sidesStar3D() {
+        int numPoints = 5;
+        int[][] sides = new int[8 * numPoints][];
+        for (int i = 0; i < numPoints; i++) {
+            // Conectar cada punta externa con los dos internos vecinos y su réplica en la base inferior
+            int next = (i + 1) % numPoints;
+            sides[i] = new int[]{i, numPoints + i, numPoints + next, next}; // Lado superior
+            sides[numPoints + i] = new int[]{i, next, numPoints + numPoints + next, numPoints + numPoints + i}; // Lados laterales exteriores
+            sides[2 * numPoints + i] = new int[]{numPoints + i, 2 * numPoints + i, 3 * numPoints + next, numPoints + next}; // Lados laterales interiores
+            sides[3 * numPoints + i] = new int[]{2 * numPoints + i, 3 * numPoints + i, 3 * numPoints + next, 2 * numPoints + next}; // Lado inferior
+        }
+        return sides;
+    }
 }
